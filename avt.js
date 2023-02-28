@@ -130,7 +130,6 @@ const claim = async (walletList, retry) => {
             });
             if(response.data.code === 200){
                 datas.isAlreadyClaim = true;
-                datas.data = datas.data.data;
                 console.log(`address ${datas.address} success claim!`)
             } else if(response.data.msg === 'This address has been picked up' || response.data.code === 1){
                 datas.isAlreadyClaim = true;

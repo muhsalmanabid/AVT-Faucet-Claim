@@ -15,7 +15,9 @@
     "axios-socks5-agent": "^1.0.5",
     "eslint": "^8.35.0",
     "ethereumjs-wallet": "^1.0.2",
+    "https-proxy-agent": "^5.0.1",
     "prompt-sync": "^4.2.0",
-    "qs": "^6.11.0"
+    "qs": "^6.11.0",
+    "url-parse": "^1.5.10"
   }
 }

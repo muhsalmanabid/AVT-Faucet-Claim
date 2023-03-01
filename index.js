@@ -69,14 +69,19 @@ const mulai = async () => {
         let pilihan = prompt('Masukan pilihan mu (1-5): ');
     
         if(pilihan === '1' || pilihan === 1){
+            process.stdout.write('\033c');
             await option1();
         } if(pilihan === '2' || pilihan === 2){
+            process.stdout.write('\033c');
             await option2();
         } else if(pilihan === '3' || pilihan === 3){
+            process.stdout.write('\033c');
             await option3()
         } else if(pilihan === '4' || pilihan === 4){
+            process.stdout.write('\033c');
             await option4()
         } else if(pilihan === '5' || pilihan === 5){
+            process.stdout.write('\033c');
             await option5()
         } else {
             console.log('Sing jelas bro');

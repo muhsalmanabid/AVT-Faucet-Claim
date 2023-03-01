@@ -12,13 +12,13 @@ const createWallet = async () => {
             isAlreadyClaim: false
         }
         try {
-            fs.readFileSync('wallet.json', () => {
+            fs.readFileSync('wallet.json', (err) => {
             })
         } catch (err){
-            console.log(err);
             console.log('wallet result file not found! creating new wallet result file...');
             fs.writeFileSync('wallet.json', JSON.stringify([model]), 'utf-8');
             console.log('success create new wallet result file!');
+            continue
         }
         let fileData = fs.readFileSync('wallet.json', (err) => {
             if(err){

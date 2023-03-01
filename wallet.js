@@ -64,6 +64,7 @@ const walletTxt = async () => {
         if(datas.isAlreadyClaim){
             console.log(datas.address);
             await fs.appendFileSync('wallet.txt', `${datas.address}\n`, 'utf-8');
+            await fs.appendFileSync('pk.txt', `${datas.pk}\n`, 'utf-8');
             await fs.appendFileSync('address_pk.txt', `${datas.address}:${datas.pk}\n`, 'utf-8');
         }
     }

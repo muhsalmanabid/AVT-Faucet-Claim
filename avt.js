@@ -68,6 +68,7 @@ const retryClaim = async (dataWallet) => {
                 if(typeof response === 'object' && response.data && response.data.code === 200){
                     dataWallet.isAlreadyClaim = true;
                     await fs.appendFileSync('wallet.txt', `${datas.address}\n`, 'utf-8');
+                    await fs.appendFileSync('address_pk.txt', `${datas.address}:${datas.pk}\n`, 'utf-8');
                     console.log(`address ${dataWallet.address} success claim! with proxy ${proxy.protocols[0]}://${proxy.ip}:${proxy.port}`)
                     break;
                 } else if(typeof response === 'object' && response.data && response.data.msg === 'This address has been picked up'){
@@ -130,6 +131,7 @@ const claim = async (walletList, retry) => {
             if(response.data.code === 200){
                 datas.isAlreadyClaim = true;
                 await fs.appendFileSync('wallet.txt', `${datas.address}\n`, 'utf-8');
+                await fs.appendFileSync('address_pk.txt', `${datas.address}:${datas.pk}\n`, 'utf-8');
                 console.log(`address ${datas.address} success claim!`)
             } else if(response.data.msg === 'This address has been picked up' || response.data.code === 1){
                 datas.isAlreadyClaim = true;

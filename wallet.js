@@ -1,5 +1,6 @@
 const Wallet = require('ethereumjs-wallet');
 const fs = require('fs');
+const prompt = require('prompt-sync')();
 
 const createWallet = async () => {
     let walletList = [];
@@ -47,18 +48,26 @@ const updateWallet = async (wallet) => {
 };
 
 const walletTxt = async () => {
-    const fileData = await fs.readFileSync('wallet.json', (err) => {
-        if(err){
-            console.log(err);
-        }
-    })
+    let namaFile = prompt('Masukan nama file wallet json nya (example: wallet_salman_ganteng.json): ');
+    let fileData;
+    try {
+        fileData = await fs.readFileSync(namaFile, (err) => {
+            
+        })
+    } catch (err) {
+        console.log('ngga ketemu filenya!');
+        return 0;
+    }
     const waletList = JSON.parse(fileData);
     console.log('total data: ' + waletList.length)
     for(let datas of waletList){
         if(datas.isAlreadyClaim){
+            console.log(datas.address);
             await fs.appendFileSync('wallet.txt', `${datas.address}\n`, 'utf-8');
+            await fs.appendFileSync('address_pk.txt', `${datas.address}:${datas.pk}\n`, 'utf-8');
         }
     }
+    console.log('success!');
 }
 
 module.exports = {

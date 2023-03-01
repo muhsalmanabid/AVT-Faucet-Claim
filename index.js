@@ -1,4 +1,4 @@
-const { createWallet } = require('./wallet');
+const { createWallet, walletTxt } = require('./wallet');
 const { claim } = require('./avt');
 const fs = require('fs');
 const prompt = require('prompt-sync')();
@@ -40,25 +40,8 @@ const option4 = async () => {
 }
 
 const option5 = async () => {
-    let namaFile = prompt('Masukan nama file wallet json nya (example: wallet_salman_ganteng.json): ');
-    let fileData;
-    try {
-        fileData = await fs.readFileSync(namaFile, (err) => {
-            
-        })
-    } catch (err) {
-        console.log('ngga ketemu filenya!');
-        return 0;
-    }
-    const waletList = JSON.parse(fileData);
-    console.log('total data: ' + waletList.length)
-    for(let datas of waletList){
-        if(datas.isAlreadyClaim){
-            console.log(datas.address);
-            await fs.appendFileSync('wallet.txt', `${datas.address}\n`, 'utf-8');
-            await fs.appendFileSync('address_pk.txt', `${datas.address}:${datas.pk}\n`, 'utf-8');
-        }
-    }
+    await walletTxt();
+    return 0;
 }
 
 const mulai = async () => {

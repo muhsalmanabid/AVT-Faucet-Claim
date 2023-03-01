@@ -46,7 +46,23 @@ const updateWallet = async (wallet) => {
     return null;
 };
 
+const walletTxt = async () => {
+    const fileData = await fs.readFileSync('wallet.json', (err) => {
+        if(err){
+            console.log(err);
+        }
+    })
+    const waletList = JSON.parse(fileData);
+    console.log('total data: ' + waletList.length)
+    for(let datas of waletList){
+        if(datas.isAlreadyClaim){
+            await fs.appendFileSync('wallet.txt', `${datas.address}\n`, 'utf-8');
+        }
+    }
+}
+
 module.exports = {
     createWallet,
-    updateWallet
+    updateWallet,
+    walletTxt
 }

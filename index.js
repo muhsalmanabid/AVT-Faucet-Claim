@@ -39,12 +39,33 @@ const option4 = async () => {
     return 0;
 }
 
+const option5 = async () => {
+    let namaFile = prompt('Masukan nama file wallet json nya (example: wallet_salman_ganteng.json): ');
+    let fileData;
+    try {
+        fileData = await fs.readFileSync(namaFile, (err) => {
+            
+        })
+    } catch (err) {
+        console.log('ngga ketemu filenya!');
+        return 0;
+    }
+    const waletList = JSON.parse(fileData);
+    console.log('total data: ' + waletList.length)
+    for(let datas of waletList){
+        if(datas.isAlreadyClaim){
+            console.log(datas.address);
+            await fs.appendFileSync('wallet.txt', `${datas.address}\n`, 'utf-8');
+        }
+    }
+}
+
 const mulai = async () => {
     let ulang = true;
     while(ulang){
         process.stdout.write('\033c');
-        console.log('1. Create 10 wallet and claim with proxy\n2. Create 10 wallet and claim without proxy (manual)\n3. Claim faucet with address in wallet.json\n4. Claim faucet with address in wallet.json without proxy (manual)\n');
-        let pilihan = prompt('Masukan pilihan mu (1 atau 2): ');
+        console.log('1. Create 10 wallet and claim with proxy\n2. Create 10 wallet and claim without proxy (manual)\n3. Claim faucet with address in wallet.json\n4. Claim faucet with address in wallet.json without proxy (manual)\n5. Wallet.json to wallet.txt');
+        let pilihan = prompt('Masukan pilihan mu (1-5): ');
     
         if(pilihan === '1' || pilihan === 1){
             await option1();
@@ -54,24 +75,12 @@ const mulai = async () => {
             await option3()
         } else if(pilihan === '4' || pilihan === 4){
             await option4()
+        } else if(pilihan === '5' || pilihan === 5){
+            await option5()
         } else {
             console.log('Sing jelas bro');
             process.exit();
         }
-        // switch(pilihan){
-        //     case 1:
-        //     case '1':
-        //         await option1();
-        //         break;
-        //     case 2:
-        //     case '2':
-        //         await option2();
-        //         break;
-        //     default:
-        //     console.log('Sing jelas bro');
-        //     process.exit();
-        //     break;
-        // }
         pilihan = prompt('Lanjut? (y/n): ');
         pilihan.toLocaleLowerCase();
         if(pilihan === 'n' || pilihan === 'no'){
